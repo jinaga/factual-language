@@ -51,6 +51,10 @@
 				{
 					"name": "keyword.operator.factual",
 					"match": ":"
+				},
+				{
+					"name": "keyword.operator.factual",
+					"match": "->|=>|#|=|\\.|!|\\bE\\b|[()\\[\\]{}]"
 				}
 			]
 		},
