@@ -1,0 +1,103 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Factual",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#booleans"
+		},
+		{
+			"include": "#class-names"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#properties"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#punctuation"
+		},
+		{
+			"include": "#variables"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.factual",
+				"match": "\\b(let)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.factual",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.factual",
+					"match": "\\\\."
+				}
+			]
+		},
+		"numbers": {
+			"name": "constant.numeric.factual",
+			"match": "-?\\b\\d+(?:\\.\\d+)?(?:e[+-]?\\d+)?\\b"
+		},
+		"booleans": {
+			"name": "constant.language.boolean.factual",
+			"match": "\\b(?:false|true)\\b"
+		},
+		"class-names": {
+			"name": "entity.name.type.class.factual",
+			"begin": "(:\\s*)[A-Z_][A-Z0-9_.]*",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.separator.key-value.factual"
+				}
+			}
+		},
+		"functions": {
+			"name": "entity.name.function.factual",
+			"begin": "(->\\s*)[A-Z_][A-Z0-9_]*",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.operator.function.factual"
+				}
+			}
+		},
+		"properties": {
+			"name": "variable.other.property.factual",
+			"begin": "(\\.\\s*)[A-Z_][A-Z0-9_]*",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.separator.property.factual"
+				}
+			}
+		},
+		"operators": {
+			"name": "keyword.operator.factual",
+			"match": "(->|=>|#|=|\\.|!|\\bE\\b)"
+		},
+		"punctuation": {
+			"name": "punctuation.definition.factual",
+			"match": "[()\\[\\]{}:]"
+		},
+		"variables": {
+			"name": "variable.other.factual",
+			"match": "[A-Z_][A-Z0-9_]*"
+		}
+	},
+	"scopeName": "source.fact"
+}
