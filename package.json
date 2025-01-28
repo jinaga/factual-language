@@ -2,7 +2,7 @@
   "name": "factual-language",
   "displayName": "Factual Language",
   "description": "Syntax highlighting for the Factual language",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -10,16 +10,25 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "factual",
-      "aliases": ["Factual", "factual"],
-      "extensions": [".fact"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "factual",
-      "scopeName": "source.factual",
-      "path": "./syntaxes/factual.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "factual",
+        "aliases": [
+          "Factual",
+          "factual"
+        ],
+        "extensions": [
+          ".fact"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "factual",
+        "scopeName": "source.factual",
+        "path": "./syntaxes/factual.tmLanguage.json"
+      }
+    ]
   }
 }
