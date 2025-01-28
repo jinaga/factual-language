@@ -61,7 +61,7 @@
 		},
 		"class-names": {
 			"name": "entity.name.type.class.factual",
-			"begin": "(:\\s*)[A-Z_][A-Z0-9_.]*",
+			"begin": "(?i)(:\\s*)[A-Z_][A-Z0-9_]*(\\.[A-Z_][A-Z0-9_]*)*",
 			"beginCaptures": {
 				"1": {
 					"name": "punctuation.separator.key-value.factual"
@@ -70,7 +70,7 @@
 		},
 		"functions": {
 			"name": "entity.name.function.factual",
-			"begin": "(->\\s*)[A-Z_][A-Z0-9_]*",
+			"begin": "(?i)(->\\s*)[A-Z_][A-Z0-9_]*",
 			"beginCaptures": {
 				"1": {
 					"name": "keyword.operator.function.factual"
@@ -79,7 +79,7 @@
 		},
 		"properties": {
 			"name": "variable.other.property.factual",
-			"begin": "(\\.\\s*)[A-Z_][A-Z0-9_]*",
+			"begin": "(?i)(\\.\\s*)[A-Z_][A-Z0-9_]*",
 			"beginCaptures": {
 				"1": {
 					"name": "punctuation.separator.property.factual"
@@ -96,7 +96,7 @@
 		},
 		"variables": {
 			"name": "variable.other.factual",
-			"match": "[A-Z_][A-Z0-9_]*"
+			"match": "(?i)\\b[A-Z_][A-Z0-9_]*\\b"
 		}
 	},
 	"scopeName": "source.fact"
