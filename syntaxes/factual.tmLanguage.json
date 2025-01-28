@@ -9,13 +9,13 @@
 			"include": "#strings"
 		},
 		{
-			"include": "#identifiers"
-		},
-		{
 			"include": "#operators"
 		},
 		{
 			"include": "#types"
+		},
+		{
+			"include": "#identifiers"
 		}
 	],
 	"repository": {
@@ -50,11 +50,7 @@
 			"patterns": [
 				{
 					"name": "keyword.operator.factual",
-					"match": ":"
-				},
-				{
-					"name": "keyword.operator.factual",
-					"match": "->|=>|#|=|\\.|!|\\bE\\b|[()\\[\\]{}]"
+					"match": "->|=>|#|=|:|\\.|!E|!|\\bE\\b|[()\\[\\]{}]"
 				}
 			]
 		},
@@ -62,7 +58,7 @@
 			"patterns": [
 				{
 					"name": "entity.name.type.factual",
-					"match": "(?<=:)\\s*\\b[a-zA-Z_][\\.a-zA-Z0-9_]*\\b|\\b[a-zA-Z_][\\.a-zA-Z0-9_]*\\b"
+					"match": "(?<=:\\s*)\\b[a-zA-Z_][\\.a-zA-Z0-9_]*\\b"
 				}
 			]
 		}
