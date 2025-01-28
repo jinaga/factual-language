@@ -18,7 +18,7 @@
     }],
     "grammars": [{
       "language": "factual",
-      "scopeName": "source.fact",
+      "scopeName": "source.factual",
       "path": "./syntaxes/factual.tmLanguage.json"
     }]
   }

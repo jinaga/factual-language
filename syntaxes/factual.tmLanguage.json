@@ -7,14 +7,25 @@
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#identifiers"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#types"
 		}
 	],
 	"repository": {
 		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.factual",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
+			"patterns": [
+				{
+					"name": "keyword.let.factual",
+					"match": "\\blet\\b"
+				}
+			]
 		},
 		"strings": {
 			"name": "string.quoted.double.factual",
@@ -26,7 +37,31 @@
 					"match": "\\\\."
 				}
 			]
+		},
+		"identifiers": {
+			"patterns": [
+				{
+					"name": "variable.factual",
+					"match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "operator.type.factual",
+					"match": ":"
+				}
+			]
+		},
+		"types": {
+			"patterns": [
+				{
+					"name": "type.factual",
+					"match": "(?<=:)\\s*\\b[a-zA-Z_][\\.a-zA-Z0-9_]*\\b|\\b[a-zA-Z_][\\.a-zA-Z0-9_]*\\b"
+				}
+			]
 		}
 	},
-	"scopeName": "source.fact"
+	"scopeName": "source.factual"
 }
