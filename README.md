@@ -1,65 +1,153 @@
-# factual-language README
+# Factual Language VS Code Extension
 
-This is the README for your extension "factual-language". After writing up a brief description, we recommend including the following sections.
+This Visual Studio Code extension provides syntax highlighting and language support for the Factual language used in Jinaga. The Factual language allows you to declare a set of facts, predecessors, and projections for the Jinaga Replicator.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Syntax highlighting for Factual language files (`.fact`).
+- Support for comments, brackets, auto-closing pairs, and surrounding pairs.
+- Example Factual language snippets for quick reference.
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+To install the extension, copy it into the `<user home>/.vscode/extensions` folder and restart Visual Studio Code.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Usage
+
+1. Open a new window with your extension loaded by pressing `F5`.
+2. Create a new file with the `.fact` extension.
+3. Write your Factual language code and enjoy the syntax highlighting and language support.
+
+## Example
+
+Here is an example set of Factual language declarations:
+
+```factual
+let site: Blog.Site = {
+    domain: "qedcode.com"
+}
+
+let post: Blog.Post = {
+    createdAt: "2022-08-16T15:23:13.231Z",
+    site
+}
+
+let title: Blog.Post.Title = {
+    post,
+    value: "Introducing Jinaga Replicator",
+    prior: []
+}
+let title2: Blog.Post.Title = {
+    post,
+    value: "Introduction to the Jinaga Replicator",
+    prior: [ title ]
+}
+```
+
+## Facts
+
+All of the facts written in the request body will be inserted into the Replicator's database. Give each fact a variable name, a type, and a set of fields.
+
+```factual
+let site: Blog.Site = {
+    domain: "qedcode.com"
+}
+```
+
+## Predecessors
+
+You can use the variable to declare a predecessor of another fact.
+
+```factual
+let post: Blog.Post = {
+    createdAt: "2022-08-16T15:23:13.231Z",
+    site: site
+}
+```
+
+If the predecessor has the same name as the variable, you can simplify it.
+
+```factual
+let post: Blog.Post = {
+    createdAt: "2022-08-16T15:23:13.231Z",
+    site
+}
+```
+
+## Arrays
+
+To define an array of predecessors, use square brackets. You can supply empty square brackets for an empty array.
+
+```factual
+let title: Blog.Post.Title = {
+    post,
+    value: "Introducing Jinaga Replicator",
+    prior: []
+}
+```
+
+Or you can list any number of previously defined facts.
+
+```factual
+let title2: Blog.Post.Title = {
+    post,
+    value: "Introduction to the Jinaga Replicator",
+    prior: [ title ]
+}
+```
+
+## Specification
+
+The Jinaga Factual language lets you declare a set of input facts, a specification body, and projections. Here's an example specification:
+
+```factual
+let site: Blog.Site = {
+    domain: "qedcode.com"
+}
+
+(site: Blog.Site) {
+    post: Blog.Post [
+        post->site: Blog.Site = site
+        !E {
+            deleted: Blog.Post.Deleted [
+                deleted->post: Blog.Post = post
+            ]
+        }
+    ]
+} => {
+    id = #post
+    createdAt = post.createdAt
+    titles = {
+        title: Blog.Post.Title [
+            title->post: Blog.Post = post
+            !E {
+                next: Blog.Post.Title [
+                    next->prior: Blog.Post.Title = title
+                ]
+            ]
+        }
+    } => title.value
+}
+```
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+- Visual Studio Code version 1.96.0 or higher.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- No known issues at this time.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.1.0
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+- Initial release of the Factual language Visual Studio Code extension.
 
 ## For more information
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+- [Jinaga Factual Language Documentation](https://jinaga.com/documents/replicator/write/)
+- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
+- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
