@@ -121,7 +121,7 @@ let title2: Blog.Post.Title = {
 
 ### Specification
 
-The Factual specification language lets you declare a set of input facts, a specification body, and projections. Here's an example specification:
+The Factual specification language lets you declare a set of given facts, a specification body, and projections. Here's an example specification:
 
 ```factual
 (site: Blog.Site) {
@@ -143,8 +143,8 @@ The Factual specification language lets you declare a set of input facts, a spec
                 next: Blog.Post.Title [
                     next->prior: Blog.Post.Title = title
                 ]
-            ]
-        }
+            }
+        ]
     } => title.value
 }
 ```
