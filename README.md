@@ -149,6 +149,130 @@ The Factual specification language lets you declare a set of given facts, a spec
 }
 ```
 
+#### Givens
+
+The givens are the starting point for the specification.
+
+```specification
+(site: Blog.Site) {
+    <specification body>
+}
+```
+
+#### Specification Body
+
+Once you have a starting point, you will want to look for related facts.
+The specification body matches facts based on their relationship to the givens and to each other.
+
+The body of a specification defines a list of unknowns.
+Declare an unknown by name and type.
+Then in square brackets, list conditions that relate the unknown to the givens.
+
+```specification
+post: Blog.Post [
+    <conditions>
+]
+```
+
+One kind of condition is a path.
+Paths join the declared unknown to givens or previously declared unknowns.
+
+```specification
+post->site: Blog.Site = site
+```
+
+The arrow indicates that we are following an edge up to a predecessor.
+The name and type of that predecessor appear after the arrow.
+You can use as many arrows as you need on both the left and right side.
+
+Another type of condition is an existential.
+It says whether it's looking for something to exist (`E`) or not exist (`!E`).
+And then it declares another tuple.
+
+```specification
+!E {
+    deleted: Blog.Post.Deleted [
+        deleted->post: Blog.Post = post
+    ]
+}
+```
+
+A positive existential condition will be true if any tuple of facts match the unknowns.
+A negative existential condition will match if none do.
+
+#### Projection
+
+So far you have some facts that are used as givens, and a list of unknowns with conditions.
+If you run this specification, you will see all of the tuples of facts that match these unknowns.
+
+```json
+[
+  {
+    "post": {
+      "createdAt": "2023-04-28T23:53:00Z"
+    }
+  }
+]
+```
+
+But you might want to reshape your results.
+
+Projections turn tuples into meaningful results.
+They can select fields or hashes of facts in the tuple.
+
+```specification
+=> {
+    id = #post
+    createdAt = post.createdAt
+}
+```
+
+This should now return the following:
+
+```json
+[
+  {
+    "id": "SV3Yseb0FJ/uQoL4IelHHbo1g4PZjnP4bx+aivMiiCkSTn2vSaNR6314KXL+PgO9lX9jmJzWoZABTRHjiFHWdQ==",
+    "createdAt": "2023-04-28T23:53:00Z"
+  }
+]
+```
+
+#### Child Specifications
+
+A projection can also run child specifications.
+A child specification has its own list of unknowns.
+It can even have its own projection.
+
+```specification
+titles = {
+    title: Blog.Post.Title [
+        title->post: Blog.Post = post
+        !E {
+            next: Blog.Post.Title [
+                next->prior: Blog.Post.Title = title
+            ]
+        }
+    ]
+} => title.value
+```
+
+Run it now and you will see these results:
+
+```json
+[
+  {
+    "id": "SV3Yseb0FJ/uQoL4IelHHbo1g4PZjnP4bx+aivMiiCkSTn2vSaNR6314KXL+PgO9lX9jmJzWoZABTRHjiFHWdQ==",
+    "createdAt": "2023-04-28T23:53:00Z",
+    "titles": [
+      "Introduction to the Jinaga Replicator"
+    ]
+  }
+]
+```
+
+This lets you build up a JSON structure containing just what you want.
+
 ## Requirements
 
 - Visual Studio Code version 1.96.0 or higher.
