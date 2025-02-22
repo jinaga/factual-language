@@ -1,10 +1,10 @@
 # Factual Language VS Code Extension
 
-This Visual Studio Code extension provides syntax highlighting and language support for the Factual language used in Jinaga. The Factual language allows you to declare a set of facts, predecessors, and projections for the Jinaga Replicator.
+This Visual Studio Code extension provides syntax highlighting and language support for the Factual language used in Jinaga. The Factual language allows you to declare fact models, scenarios, and specifications.
 
 ## Features
 
-- Syntax highlighting for Factual language files (`.fact`).
+- Syntax highlighting for Factual language files (`.model.fact`, `.scenario.fact`, and `.specification.fact`).
 - Support for comments, brackets, auto-closing pairs, and surrounding pairs.
 - Example Factual language snippets for quick reference.
 
@@ -15,12 +15,35 @@ To install the extension, copy it into the `<user home>/.vscode/extensions` fold
 ## Usage
 
 1. Open a new window with your extension loaded by pressing `F5`.
-2. Create a new file with the `.fact` extension.
+2. Create a new file with the `.model.fact` extension.
 3. Write your Factual language code and enjoy the syntax highlighting and language support.
 
-## Example
+## Examples
 
-Here is an example set of Factual language declarations:
+### Model
+
+Here is an example set of Factual model:
+
+```factual
+fact Blog.Site {
+    domain: string
+}
+
+fact Blog.Post {
+    createdAt: datetime
+    site: Blog.Site
+}
+
+fact Blog.Post.Title {
+    post: Blog.Post
+    value: string
+    prior: Blog.Post.Title*
+}
+```
+
+### Scenario
+
+Here is an example set of Factual scenario:
 
 ```factual
 let site: Blog.Site = {
@@ -44,7 +67,7 @@ let title2: Blog.Post.Title = {
 }
 ```
 
-## Facts
+#### Facts
 
 All of the facts written in the request body will be inserted into the Replicator's database. Give each fact a variable name, a type, and a set of fields.
 
@@ -54,7 +77,7 @@ let site: Blog.Site = {
 }
 ```
 
-## Predecessors
+#### Predecessors
 
 You can use the variable to declare a predecessor of another fact.
 
@@ -74,7 +97,7 @@ let post: Blog.Post = {
 }
 ```
 
-## Arrays
+#### Arrays
 
 To define an array of predecessors, use square brackets. You can supply empty square brackets for an empty array.
 
@@ -96,15 +119,11 @@ let title2: Blog.Post.Title = {
 }
 ```
 
-## Specification
+### Specification
 
-The Jinaga Factual language lets you declare a set of input facts, a specification body, and projections. Here's an example specification:
+The Factual specification language lets you declare a set of input facts, a specification body, and projections. Here's an example specification:
 
 ```factual
-let site: Blog.Site = {
-    domain: "qedcode.com"
-}
-
 (site: Blog.Site) {
     post: Blog.Post [
         post->site: Blog.Site = site
