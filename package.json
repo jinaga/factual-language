@@ -16,22 +16,54 @@
   "contributes": {
     "languages": [
       {
-        "id": "factual",
+        "id": "factual-specification",
         "aliases": [
-          "Factual",
-          "factual"
+          "Factual Specification",
+          "factual-specification"
         ],
         "extensions": [
-          ".fact"
+          ".specification.fact"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "factual-model",
+        "aliases": [
+          "Factual Model",
+          "factual-model"
+        ],
+        "extensions": [
+          ".model.fact"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "factual-scenario",
+        "aliases": [
+          "Factual Scenario",
+          "factual-scenario"
+        ],
+        "extensions": [
+          ".scenario.fact"
         ],
         "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
       {
-        "language": "factual",
-        "scopeName": "source.factual",
-        "path": "./syntaxes/factual.tmLanguage.json"
+        "language": "factual-specification",
+        "scopeName": "source.factual.specification",
+        "path": "./syntaxes/factual-specification.tmLanguage.json"
+      },
+      {
+        "language": "factual-model",
+        "scopeName": "source.factual.model",
+        "path": "./syntaxes/factual-model.tmLanguage.json"
+      },
+      {
+        "language": "factual-scenario",
+        "scopeName": "source.factual.scenario",
+        "path": "./syntaxes/factual-scenario.tmLanguage.json"
       }
     ]
   }
